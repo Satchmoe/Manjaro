@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-
+""" Program: Install software for Manjaro Linux
+    Programmer: Chevelle
+    Date created: 06-03-2017
+    Date Updated:
+    Tested: Manjaro Linux 17.0.1 = worked
+    Purpose: Fast way to install/configure new installed Manjaro distro
+    Description: Install software, configure wine on games side
+"""
 import os
 
 pacman = "sudo pacman -S --needed"
