@@ -7,6 +7,7 @@
     Purpose: Fast way to install/configure new installed Manjaro distro
     Description: Install software, configure wine on games side
 """
+
 import os
 
 pacman = "sudo pacman -S --needed"
@@ -42,18 +43,22 @@ class List(object):
         List.install('{} mpv mplayer smtube'.format(pacman), 'Media')
 
     def Game():
-        choice = input('Do you want to install just the apps or full setup'
-                       ' [y=full/n=apps]')
-        if choice != 'y':
+        choice = str(input('Do you want to install just the apps or full setup'
+                           '[y=full/N=apps]: '))
+        if choice in ('y', 'ye', 'yes'):
             List.install('{0} dosbox wine winetricks q4wine playonlinux mono \
                         smplayer gimp lib32-libldap lib32-gnutls lib32-lcms2 \
-                        && {1} ttf-ms-fonts'.format(pacman, yaourt), 'Game')
+                        && {1} ttf-ms-fonts gstreamer0.10-bad \
+                        gstreamer0.10-bad-plugins gstreamer0.10-good \
+                        gstreamer0.10-good-plugins gstreamer0.10-ugly \
+                        gstreamer0.10-ugly-plugins gstreamer0.10-base \
+                        gstreamer0.10-base-plugins \
+                        '.format(pacman, yaourt), 'Game-full')
+            os.system('winetricks corefonts hosts winhttp wininet vcrun2015')
         else:
             List.install('{0} dosbox wine winetricks q4wine playonlinux mono \
                         smplayer gimp lib32-libldap lib32-gnutls lib32-lcms2 \
-                        && {1} ttf-ms-fonts gstreamer0.10-{{bad,good,ugly,base} \
-                        {,-plugins},ffmpeg}'.format(pacman, yaourt), 'Game')
-            os.system('winetricks corefonts hosts winhttp wininet vcrun2015')
+                        && {1} ttf-ms-fonts'.format(pacman, yaourt), 'Game')
 
     Menu_list = {0: Exit,
                  1: Development,
@@ -84,7 +89,7 @@ def menu():
 def update():
     """Ranking mirrors, Optimize, and Sync database"""
     os.system('clear')
-    choice = input('Would you like to Improve download speed [y/n]: ')
+    choice = input('Would you like to Improve download speed [y/N]: ')
     if choice == 'y':
         os.system('sudo pacman-mirrors -g && sudo pacman -Syy \
                 && sudo pacman-optimize && sync')
