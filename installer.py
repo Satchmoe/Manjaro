@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-""" Program: Install software for Manjaro Linux
-    Programmer: Chevelle
-    Date created: 06-03-2017
-    Date Updated:
-    Tested: Manjaro Linux 17.0.1 = worked
-    Purpose: Fast way to install/configure new installed Manjaro distro
-    Description: Install software, configure wine on games side
+
+"""
+Program: Install software for Manjaro Linux.
+Programmer: Chevelle
+Date created: 06-03-2017
+Date Updated: 05-29-2018
+Version: 1.0.1  (major.minor.fixes)
+Tested: Manjaro Linux 17.0.1 = worked
+Purpose: Fast way to install/configure new installed Manjaro distro.
+Description: Install software, configure wine on games side.
+Notes:
 """
 
 import os
@@ -14,7 +18,7 @@ pacman = "sudo pacman -S --needed"
 yaourt = "yaourt -S --needed"
 
 
-class List(object):
+class List():
 
     def install(install, name):
         print("Installing {} Software...".format(name))
@@ -69,7 +73,7 @@ class List(object):
 
 
 def menu():
-    """Display dictionary 'Menu_list' in List class as a menu"""
+    """Display dictionary 'Menu_list' in List class as a menu."""
     os.system('clear')
     Selection = 1
     print('Installtion Menu: \n')
@@ -78,7 +82,7 @@ def menu():
 
     try:
         Selection = int(input("\nSelect a Number: "))
-        if (Selection >= 0):
+        if Selection >= 0:
             List.Menu_list[Selection]()
     except Exception as e:
         print("Not a selection \nTry again: \n")
@@ -87,11 +91,11 @@ def menu():
 
 
 def update():
-    """Ranking mirrors, Optimize, and Sync database"""
+    """Ranking mirrors, Optimize, and Sync database."""
     os.system('clear')
     choice = input('Would you like to Improve download speed [y/N]: ')
-    if choice == 'y':
-        os.system('sudo pacman-mirrors -g && sudo pacman -Syy \
+    if choice in ('y', 'ye', 'yes'):
+        os.system('sudo pacman-mirrors --fasttrack && sudo pacman -Syy \
                 && sudo pacman-optimize && sync')
         input('Press Enter to continue....')
         menu()
