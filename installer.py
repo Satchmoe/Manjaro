@@ -8,7 +8,7 @@ Date Updated: 05-29-2018
 Version: 1.0.1  (major.minor.fixes)
 Tested: Manjaro Linux 17.0.1 = worked
 Purpose: Fast way to install/configure new installed Manjaro distro.
-Description: Install software, configure wine on games side.
+Description: Install software, configure wine on game side.
 Notes:
 """
 
