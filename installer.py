@@ -4,8 +4,8 @@
 Program: Install software for Manjaro Linux.
 Programmer: Chevelle
 Date created: 06-03-2017
-Date Updated: 05-29-2018
-Version: 1.0.1  (major.minor.fixes)
+Date Updated: 06-20-2018
+Version: 1.0.2  (major.minor.fixes)
 Tested: Manjaro Linux 17.0.1 = worked
 Purpose: Fast way to install/configure new installed Manjaro distro.
 Description: Install software, configure wine on game side.
@@ -14,16 +14,17 @@ Notes:
 
 import os
 
+"""Installtion type for Arch based linux (Pacman, Yaourt)"""
 pacman = "sudo pacman -S --needed"
 yaourt = "yaourt -S --needed"
 
 
-class List():
+class List:
 
-    def install(install, name):
+    def install(programs, name):
         print("Installing {} Software...".format(name))
         try:
-            os.system(install)
+            os.system(programs)
         except Exception as e:
             print('Error Installing')
         finally:
@@ -35,8 +36,8 @@ class List():
         print('Exit!!! \n')
 
     def Development():
-        List.install('{0} atom geany git terminator redshift \
-                    && {1} redshift-qt'.format(pacman, yaourt), 'Development')
+        List.install('{} atom geany git terminator redshift\
+                     '.format(pacman), 'Development')
 
     def Internet():
         List.install('{0} chromium \
@@ -84,8 +85,12 @@ def menu():
         Selection = int(input("\nSelect a Number: "))
         if Selection >= 0:
             List.Menu_list[Selection]()
-    except Exception as e:
-        print("Not a selection \nTry again: \n")
+    except ValueError:
+        print("Not a integer/Number... \nTry again: \n")
+        input('Press Enter to continue....')
+        menu()
+    except KeyError:
+        print("Not a number in the list... \nTry again: \n")
         input('Press Enter to continue....')
         menu()
 
